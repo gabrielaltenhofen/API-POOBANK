@@ -8,6 +8,7 @@ public class PixDTO {
     private Correntista correntista;
     private BigDecimal valor;
     private String chave;
+    private String descricao;
 
     public Correntista getCorrentista() {
         return correntista;
@@ -31,5 +32,13 @@ public class PixDTO {
 
     public void setChave(String chave) {
         this.chave = chave;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
