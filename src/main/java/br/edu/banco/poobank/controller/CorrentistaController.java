@@ -1,35 +1,41 @@
-package br.edu.banco.poobank.controller;
+    package br.edu.banco.poobank.controller;
 
-import br.edu.banco.poobank.model.Correntista;
-import br.edu.banco.poobank.repository.CorrentistaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+    import br.edu.banco.poobank.model.Correntista;
+    import br.edu.banco.poobank.repository.CorrentistaRepository;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+    import java.util.List;
 
-@RestController
-@RequestMapping("/correntista")
-@CrossOrigin("*")
-public class CorrentistaController {
+    @RestController
+    @RequestMapping("/correntista")
+    @CrossOrigin("*")
+    public class CorrentistaController {
 
-    @Autowired
-    private CorrentistaRepository repository;
+        @Autowired
+        private CorrentistaRepository repository;
 
-    @GetMapping
-    public List<Correntista> all() {
-        return repository.findAll();
+        @GetMapping
+        public List<Correntista> all() {
+            return repository.findAll();
+        }
+
+        @GetMapping("/entrar/{cpf}")
+        public ResponseEntity entrar(@PathVariable String cpf) {
+            Correntista correntista = repository.findByCpf(cpf);
+            return ResponseEntity.ok(correntista);
+        }
+
+        @PostMapping
+        public ResponseEntity criarConta(@RequestBody Correntista correntista) {
+            repository.save(correntista);
+            return ResponseEntity.ok().build();
+        }
+        @GetMapping("/obterUltimoNumeroConta")
+        public ResponseEntity<String> obterUltimoNumeroConta() {
+            String ultimoNumeroConta = repository.findTopByOrderByNumeroContaDesc().getNumeroConta();
+
+            return ResponseEntity.ok(ultimoNumeroConta);
+        }
     }
-
-    @GetMapping("/entrar/{cpf}")
-    public ResponseEntity entrar(@PathVariable String cpf) {
-        Correntista correntista = repository.findByCpf(cpf);
-        return ResponseEntity.ok(correntista);
-    }
-
-    @PostMapping
-    public ResponseEntity criarConta(@RequestBody Correntista correntista) {
-        repository.save(correntista);
-        return ResponseEntity.ok().build();
-    }
-}

@@ -12,6 +12,8 @@ public interface CorrentistaRepository
     public Correntista findByCpf(String cpf);
     public Correntista findByChavePix(String chavePix);
 
+    Correntista findTopByOrderByNumeroContaDesc();
+
 //    @Query(value = "select * from correntistas where nome like ?", nativeQuery = true)
 //    public List<Correntista> pesquisarCorrentistas(String nome);
 }
