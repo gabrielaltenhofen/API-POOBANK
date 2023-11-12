@@ -1,34 +1,34 @@
-    package br.edu.banco.poobank.controller;
+package br.edu.banco.poobank.controller;
 
-    import br.edu.banco.poobank.dto.PixDTO;
-    import br.edu.banco.poobank.repository.MovimentacaoRepository;
-    import br.edu.banco.poobank.service.MovimentacaoService;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.*;
+import br.edu.banco.poobank.dto.PixDTO;
+import br.edu.banco.poobank.repository.MovimentacaoRepository;
+import br.edu.banco.poobank.service.MovimentacaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-    import java.math.BigDecimal;
-    //teste
-    @RestController
-    @RequestMapping("/movimentacao")
-    @CrossOrigin("*")
-    public class MovimentacaoController {
+import java.math.BigDecimal;
 
-        @Autowired
-        private MovimentacaoRepository repository;
+@RestController
+@RequestMapping("/movimentacao")
+@CrossOrigin("*")
+public class MovimentacaoController {
 
-        @Autowired
-        private MovimentacaoService service;
+    @Autowired
+    private MovimentacaoRepository repository;
 
-        @GetMapping("/{id}")
-        public ResponseEntity getSaldo(@PathVariable Integer id) {
-            BigDecimal saldo = repository.getSaldo(id);
-            return ResponseEntity.ok(saldo);
-        }
+    @Autowired
+    private MovimentacaoService service;
 
-        @PostMapping("/pix")
-        public ResponseEntity pix(@RequestBody PixDTO pix) {
-            service.processarPix(pix);
-            return ResponseEntity.ok().build();
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity getSaldo(@PathVariable Integer id) {
+        BigDecimal saldo = repository.getSaldo(id);
+        return ResponseEntity.ok(saldo);
     }
+
+    @PostMapping("/pix")
+    public ResponseEntity pix(@RequestBody PixDTO pix) {
+        service.processarPix(pix);
+        return ResponseEntity.ok().build();
+    }
+}
