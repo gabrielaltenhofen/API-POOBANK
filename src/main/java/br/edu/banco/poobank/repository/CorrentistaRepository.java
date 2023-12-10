@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CorrentistaRepository
-        extends JpaRepository<Correntista, Integer> {
+        extends     JpaRepository<Correntista, Integer> {
 
     public Correntista findByCpf(String cpf);
     public Correntista findByChavePix(String chavePix);
+
+    public Correntista findByCpfAndSenha(String cpf, String senha);
 
     Correntista findTopByOrderByNumeroContaDesc();
 
