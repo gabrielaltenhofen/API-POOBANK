@@ -8,7 +8,7 @@ public class PixDTO {
     private Correntista correntista;
     private BigDecimal valor;
     private String chave;
-    private String descricao;
+    private String descricao; // Adicionado
 
     public Correntista getCorrentista() {
         return correntista;

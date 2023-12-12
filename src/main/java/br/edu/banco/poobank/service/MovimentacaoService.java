@@ -21,8 +21,7 @@ public class MovimentacaoService {
 
     @Transactional
     public void processarPix(PixDTO dto) {
-        Correntista destinatario = correntistaRepository
-                .findByChavePix(dto.getChave());
+        Correntista destinatario = correntistaRepository.findByChavePix(dto.getChave());
 
         // enviando
         Movimentacao m1 = new Movimentacao();
@@ -30,7 +29,7 @@ public class MovimentacaoService {
         m1.setDataMovimentacao(new Date());
         m1.setValor(dto.getValor());
         m1.setTipo("D");
-        m1.setHistorico("PIX ENVIADO");
+        m1.setHistorico(dto.getDescricao()); // Atualizado
 
         movimentacaoRepository.save(m1);
 
@@ -40,7 +39,7 @@ public class MovimentacaoService {
         m2.setDataMovimentacao(new Date());
         m2.setValor(dto.getValor());
         m2.setTipo("C");
-        m2.setHistorico("PIX RECEBIDO");
+        m2.setHistorico(dto.getDescricao()); // Atualizado
 
         movimentacaoRepository.save(m2);
     }
